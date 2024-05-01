@@ -1,9 +1,0 @@
-.responsive-iframe-container {
-  width: 100%;
-  max-width: 800px;
-  margin: auto;
-}
-.responsive-iframe-container iframe {
-  width: 100%;
-  height: auto;
-}
