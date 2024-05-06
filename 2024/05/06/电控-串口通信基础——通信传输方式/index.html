@@ -1,0 +1,357 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>电控 | 串口通信基础——通信传输模式 | Megrez</title><meta name="author" content="阿古奈"><meta name="copyright" content="阿古奈"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="通信传输模式通信的传输模式分为三种：  单工  半双工  全双工   这三种通信模式非常好理解，下面就进行详细阐述。 单工单工通信，亦即单向通信。信号只能从发送端到接收端，且不可回复。 换句话说，信息的流动是单向的，设备之间的通信是不对称的。 半双工半双工通信，信息是双向流动的。通信双方既可成为发送端，也可成为接收端。但是，在一段发送的时候另一端只能接收。 在电控领域，半双工通信的典型用例，如RS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="电控 | 串口通信基础——通信传输模式">
+<meta property="og:url" content="http://example.com/2024/05/06/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Megrez">
+<meta property="og:description" content="通信传输模式通信的传输模式分为三种：  单工  半双工  全双工   这三种通信模式非常好理解，下面就进行详细阐述。 单工单工通信，亦即单向通信。信号只能从发送端到接收端，且不可回复。 换句话说，信息的流动是单向的，设备之间的通信是不对称的。 半双工半双工通信，信息是双向流动的。通信双方既可成为发送端，也可成为接收端。但是，在一段发送的时候另一端只能接收。 在电控领域，半双工通信的典型用例，如RS">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://s2.loli.net/2024/05/06/gYAt7XiLKOpFoaT.png">
+<meta property="article:published_time" content="2024-05-06T05:57:11.000Z">
+<meta property="article:modified_time" content="2024-05-06T06:19:36.556Z">
+<meta property="article:author" content="阿古奈">
+<meta property="article:tag" content="电控">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://s2.loli.net/2024/05/06/gYAt7XiLKOpFoaT.png"><link rel="shortcut icon" href="https://s2.loli.net/2024/04/30/veUCMNq3iXHSLJ6.png"><link rel="canonical" href="http://example.com/2024/05/06/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F/index.html"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css?v=4.13.0"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdn.jsdelivr.net/npm/@egjs/infinitegrid@4.11.1/dist/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: false,
+  percent: {
+    toc: true,
+    rightside: false,
+  },
+  autoDarkmode: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '电控 | 串口通信基础——通信传输模式',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-05-06 14:19:36'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+        if (t === 'dark') activateDarkMode()
+        else if (t === 'light') activateLightMode()
+      
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><meta name="generator" content="Hexo 7.2.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://s2.loli.net/2024/04/30/veUCMNq3iXHSLJ6.png" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://s2.loli.net/2024/05/06/gYAt7XiLKOpFoaT.png')"><nav id="nav"><span id="blog-info"><a href="/" title="Megrez"><span class="site-name">Megrez</span></a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div><div class="menus_item"><a class="site-page" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></div><div class="menus_item"><a class="site-page" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></div><div class="menus_item"><a class="site-page" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 电影</span></a></div><div class="menus_item"><a class="site-page" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></div><div class="menus_item"><a class="site-page" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">电控 | 串口通信基础——通信传输模式</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-05-06T05:57:11.000Z" title="发表于 2024-05-06 13:57:11">2024-05-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-05-06T06:19:36.556Z" title="更新于 2024-05-06 14:19:36">2024-05-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%B5%E6%8E%A7/">电控</a><i class="fas fa-angle-right post-meta-separator"></i><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%94%B5%E6%8E%A7/%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80/">串口通信基础</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">284</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="电控 | 串口通信基础——通信传输模式"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="通信传输模式"><a href="#通信传输模式" class="headerlink" title="通信传输模式"></a>通信传输模式</h1><p>通信的传输模式分为三种：</p>
+<ul>
+<li><p>单工</p>
+</li>
+<li><p>半双工</p>
+</li>
+<li><p>全双工</p>
+</li>
+</ul>
+<p>这三种通信模式非常好理解，下面就进行详细阐述。</p>
+<h2 id="单工"><a href="#单工" class="headerlink" title="单工"></a>单工</h2><p>单工通信，亦即单向通信。信号只能从发送端到接收端，且不可回复。</p>
+<p>换句话说，信息的流动是单向的，设备之间的通信是不对称的。</p>
+<h2 id="半双工"><a href="#半双工" class="headerlink" title="半双工"></a>半双工</h2><p>半双工通信，信息是双向流动的。通信双方既可成为发送端，也可成为接收端。但是，在一段发送的时候另一端只能接收。</p>
+<p>在电控领域，半双工通信的典型用例，如RS485协议。</p>
+<h2 id="全双工"><a href="#全双工" class="headerlink" title="全双工"></a>全双工</h2><p>全双工通信，信息是双向流动的。通信双方既可以成为发送端，也可以成为接收端。但是和半双工不同的是，一端在发送的同时也可以接收。发送和接收可以同时发生。</p>
+<p>在电控领域，全双工通信的典型用例，如RS232协议。</p>
+<p>在互联网协议，全双工的典型用例，如TCP协议。</p>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>一张图解决。</p>
+<p><img src="https://s2.loli.net/2024/05/06/gV9Zsx4jPu6pfQa.png" alt="image.png"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a href="http://example.com">阿古奈</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="http://example.com/2024/05/06/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F/">http://example.com/2024/05/06/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://example.com" target="_blank">Megrez</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E7%94%B5%E6%8E%A7/">电控</a></div><div class="post_share"><div class="social-share" data-image="https://s2.loli.net/2024/05/06/gYAt7XiLKOpFoaT.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/sharejs/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2024/05/05/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94TTL%E9%80%BB%E8%BE%91%E6%A6%82%E8%BF%B0/" title="电控 | 数电理论基础——TTL逻辑详述"><img class="cover" src="https://s2.loli.net/2024/05/05/J3PjscRNXyDptkF.png" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">电控 | 数电理论基础——TTL逻辑详述</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2024/05/03/%E7%94%B5%E6%8E%A7-S-BUS%E5%8D%8F%E8%AE%AE/" title="电控 | S-BUS协议及其衍生协议"><img class="cover" src="https://s2.loli.net/2024/05/03/eFqQw9sIDuTWCm3.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-03</div><div class="title">电控 | S-BUS协议及其衍生协议</div></div></a></div><div><a href="/2024/05/04/%E7%94%B5%E6%8E%A7-UART%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1/" title="电控 | 串口通信基础——串行通信综述"><img class="cover" src="https://s2.loli.net/2024/04/30/veUCMNq3iXHSLJ6.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-04</div><div class="title">电控 | 串口通信基础——串行通信综述</div></div></a></div><div><a href="/2024/05/04/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E4%B8%B2%E5%8F%A3%E5%8D%8F%E8%AE%AE%E6%A6%82%E8%BF%B0/" title="电控 | 串口通信基础——串口协议概述"><img class="cover" src="https://s2.loli.net/2024/05/05/vsM5Uy6axoDBEXe.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-04</div><div class="title">电控 | 串口通信基础——串口协议概述</div></div></a></div><div><a href="/2024/05/05/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94TTL%E9%80%BB%E8%BE%91%E6%A6%82%E8%BF%B0/" title="电控 | 数电理论基础——TTL逻辑详述"><img class="cover" src="https://s2.loli.net/2024/05/05/J3PjscRNXyDptkF.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-05-05</div><div class="title">电控 | 数电理论基础——TTL逻辑详述</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div><div class="comment-switch"><span class="first-comment">Valine</span><span id="switch-btn"></span><span class="second-comment">Disqus</span></div></div><div class="comment-wrap"><div><div class="vcomment" id="vcomment"></div></div><div><div id="disqus_thread"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://s2.loli.net/2024/04/30/veUCMNq3iXHSLJ6.png" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">阿古奈</div><div class="author-info__description">烂透了，我要盘活我的生命</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">15</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">6</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><a id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/xxxxxx"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/GzqHerry" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:xxxxxx@gmail.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn fa-shake"></i><span>公告</span></div><div class="announcement_content">This is my Blog</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%A8%A1%E5%BC%8F"><span class="toc-number">1.</span> <span class="toc-text">通信传输模式</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%95%E5%B7%A5"><span class="toc-number">1.1.</span> <span class="toc-text">单工</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%8D%8A%E5%8F%8C%E5%B7%A5"><span class="toc-number">1.2.</span> <span class="toc-text">半双工</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%85%A8%E5%8F%8C%E5%B7%A5"><span class="toc-number">1.3.</span> <span class="toc-text">全双工</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">1.4.</span> <span class="toc-text">总结</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2024/05/06/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F/" title="电控 | 串口通信基础——通信传输模式"><img src="https://s2.loli.net/2024/05/06/gYAt7XiLKOpFoaT.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="电控 | 串口通信基础——通信传输模式"/></a><div class="content"><a class="title" href="/2024/05/06/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F/" title="电控 | 串口通信基础——通信传输模式">电控 | 串口通信基础——通信传输模式</a><time datetime="2024-05-06T05:57:11.000Z" title="发表于 2024-05-06 13:57:11">2024-05-06</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/05/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94TTL%E9%80%BB%E8%BE%91%E6%A6%82%E8%BF%B0/" title="电控 | 数电理论基础——TTL逻辑详述"><img src="https://s2.loli.net/2024/05/05/J3PjscRNXyDptkF.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="电控 | 数电理论基础——TTL逻辑详述"/></a><div class="content"><a class="title" href="/2024/05/05/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%8D%8F%E8%AE%AE%E2%80%94%E2%80%94TTL%E9%80%BB%E8%BE%91%E6%A6%82%E8%BF%B0/" title="电控 | 数电理论基础——TTL逻辑详述">电控 | 数电理论基础——TTL逻辑详述</a><time datetime="2024-05-04T16:47:43.000Z" title="发表于 2024-05-05 00:47:43">2024-05-05</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/04/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E4%B8%B2%E5%8F%A3%E5%8D%8F%E8%AE%AE%E6%A6%82%E8%BF%B0/" title="电控 | 串口通信基础——串口协议概述"><img src="https://s2.loli.net/2024/05/05/vsM5Uy6axoDBEXe.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="电控 | 串口通信基础——串口协议概述"/></a><div class="content"><a class="title" href="/2024/05/04/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E4%B8%B2%E5%8F%A3%E5%8D%8F%E8%AE%AE%E6%A6%82%E8%BF%B0/" title="电控 | 串口通信基础——串口协议概述">电控 | 串口通信基础——串口协议概述</a><time datetime="2024-05-04T08:42:01.000Z" title="发表于 2024-05-04 16:42:01">2024-05-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/04/%E7%94%B5%E6%8E%A7-UART%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1/" title="电控 | 串口通信基础——串行通信综述"><img src="https://s2.loli.net/2024/04/30/veUCMNq3iXHSLJ6.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="电控 | 串口通信基础——串行通信综述"/></a><div class="content"><a class="title" href="/2024/05/04/%E7%94%B5%E6%8E%A7-UART%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1/" title="电控 | 串口通信基础——串行通信综述">电控 | 串口通信基础——串行通信综述</a><time datetime="2024-05-04T07:21:51.000Z" title="发表于 2024-05-04 15:21:51">2024-05-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2024/05/03/%E7%94%B5%E6%8E%A7-S-BUS%E5%8D%8F%E8%AE%AE/" title="电控 | S-BUS协议及其衍生协议"><img src="https://s2.loli.net/2024/05/03/eFqQw9sIDuTWCm3.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="电控 | S-BUS协议及其衍生协议"/></a><div class="content"><a class="title" href="/2024/05/03/%E7%94%B5%E6%8E%A7-S-BUS%E5%8D%8F%E8%AE%AE/" title="电控 | S-BUS协议及其衍生协议">电控 | S-BUS协议及其衍生协议</a><time datetime="2024-05-03T07:05:27.000Z" title="发表于 2024-05-03 15:05:27">2024-05-03</time></div></div></div></div></div></div></main><footer id="footer" style="background-image: url('https://s2.loli.net/2024/05/06/gYAt7XiLKOpFoaT.png')"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2024 By 阿古奈</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="chat-btn" type="button" title="聊天"><i class="fas fa-sms"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js?v=4.13.0"></script><script src="/js/main.js?v=4.13.0"></script><script src="https://cdn.jsdelivr.net/npm/@fancyapps/ui@5.0.33/dist/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [['$', '$'], ['\\(', '\\)']],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.1
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, '']
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-mml-chtml.min.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typesetPromise()
+}</script><script>(() => {
+  const initValine = () => {
+    const valine = new Valine(Object.assign({
+      el: '#vcomment',
+      appId: 'dPzutl7jPStukU3ulVw2qSj6-gzGzoHsz',
+      appKey: 'bUvREd62YjkL9u28t23gPdcF',
+      avatar: 'monsterid',
+      serverURLs: 'https://dpzutl7j.lc-cn-n1-shared.com',
+      emojiMaps: "",
+      path: window.location.pathname,
+      visitor: true
+    }, null))
+  }
+
+  const loadValine = async () => {
+    if (typeof Valine === 'function') initValine()
+    else {
+      await getScript('https://cdn.jsdelivr.net/npm/valine@1.5.1/dist/Valine.min.js')
+      initValine()
+    }
+  }
+
+  if ('Valine' === 'Valine' || !true) {
+    if (true) btf.loadComment(document.getElementById('vcomment'),loadValine)
+    else setTimeout(loadValine, 0)
+  } else {
+    window.loadOtherComment = loadValine
+  }
+})()</script><script>(() => {
+  const disqus_config = function () {
+    this.page.url = 'http://example.com/2024/05/06/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F/'
+    this.page.identifier = '/2024/05/06/%E7%94%B5%E6%8E%A7-%E4%B8%B2%E5%8F%A3%E9%80%9A%E4%BF%A1%E5%9F%BA%E7%A1%80%E2%80%94%E2%80%94%E9%80%9A%E4%BF%A1%E4%BC%A0%E8%BE%93%E6%96%B9%E5%BC%8F/'
+    this.page.title = '电控 | 串口通信基础——通信传输模式'
+  }
+
+  const disqusReset = () => {
+    window.DISQUS && window.DISQUS.reset({
+      reload: true,
+      config: disqus_config
+    })
+  }
+
+  btf.addGlobalFn('themeChange', disqusReset, 'disqus')
+
+  const loadDisqus = () =>{
+    if (window.DISQUS) disqusReset()
+    else {
+      const script = document.createElement('script')
+      script.src = 'https://GzqHerry.disqus.com/embed.js'
+      script.setAttribute('data-timestamp', +new Date())
+      document.head.appendChild(script)
+    }
+  }
+
+  const getCount = async() => {
+    try {
+      const eleGroup = document.querySelector('#post-meta .disqus-comment-count')
+      if (!eleGroup) return
+      const cleanedLinks = eleGroup.href.replace(/#post-comment$/, '')
+
+      const res = await fetch(`https://disqus.com/api/3.0/threads/set.json?forum=GzqHerry&api_key=&thread:link=${cleanedLinks}`,{
+        method: 'GET'
+      })
+      const result = await res.json()
+
+      const count = result.response.length ? result.response[0].posts : 0
+      eleGroup.textContent = count
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
+  if ('Valine' === 'Disqus' || !true) {
+    if (true) btf.loadComment(document.getElementById('disqus_thread'), loadDisqus)
+    else {
+      loadDisqus()
+      GLOBAL_CONFIG_SITE.isPost && getCount()
+    }
+  } else {
+    window.loadOtherComment = loadDisqus
+  }
+})()</script></div><div class="aplayer" data-id="3162794493" data-server="netease" data-type="playlist"  data-fixed="true" data-theme="#3F51B5"></div><script defer="defer" id="fluttering_ribbon" mobile="ture" src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/dist/canvas-fluttering-ribbon.min.js"></script><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/butterfly-extsrc@1.1.3/metingjs/dist/Meting.min.js"></script><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div><script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginModelPath":"node_modules/","model":{"scale":0.7,"hHeadPos":0.5,"vHeadPos":0.618,"jsonPath":"/live2dw/node_modules/tororo.model.json"},"display":{"superSample":2,"width":250,"height":350,"position":"right","hOffset":0,"vOffset":-20},"mobile":{"show":true,"scale":0.5},"react":{"opacityDefault":0.7,"opacityOnHover":0.2},"log":false,"pluginJsPath":"lib/","pluginRootPath":"live2dw/","tagMode":false});</script></body></html>
